@@ -11,7 +11,7 @@ def print_board(board):
     for row in board:
         print((" ").join(row))
 
-print(a, "let's play Battleship!")
+print(a, ", let's play Battleship!")
 print_board(board)
 
 def random_row(board):
@@ -23,7 +23,7 @@ def random_col(board):
 ship_row = random_row(board)
 ship_col = random_col(board)
 
-for turn in range(9):
+for turn in range(1,12):
     print("Turn", turn)
     guess_row = int(input("Guess Row:"))
     guess_col = int(input("Guess Col:"))
@@ -38,8 +38,8 @@ for turn in range(9):
             print("You guessed that one already.")
         else:
             print("You missed my battleship!")
-            board[guess_row][guess_col] = "X"
-    if turn == 8:
+            board[guess_row][guess_col] = "-"
+    
+    if turn == 12:
         print("Game Over")
-    turn += 1
-    print_board(board)
+        print_board(board)
