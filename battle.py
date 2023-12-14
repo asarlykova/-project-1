@@ -4,7 +4,6 @@ from random import randint
 
 board_size = 7
 
-# Helper function to convert number to corresponding letter for columns
 def number_to_letter(number):
     return chr(ord('A') + number)
 
@@ -33,7 +32,16 @@ ship_col = random_col(board)
 for turn in range(12):
     print("\nTurn", turn)
     guess_row = int(input("Guess Row (1-" + str(board_size) + "):")) - 1
-    guess_col = int(input("Guess Col (A-" + number_to_letter(board_size - 1) + "):", base=26)) % board_size
+    
+    # Validate column input
+    valid_columns = [number_to_letter(i) for i in range(board_size)]
+    guess_col = input("Guess Col (A-" + valid_columns[-1] + "):").upper()
+    
+    while guess_col not in valid_columns:
+        print("Invalid column input. Please enter a valid column letter.")
+        guess_col = input("Guess Col (A-" + valid_columns[-1] + "):").upper()
+
+    guess_col = valid_columns.index(guess_col)
 
     if guess_row == ship_row and guess_col == ship_col:
         print("Congratulations! You sunk my battleship!")
@@ -47,7 +55,9 @@ for turn in range(12):
         else:
             print("You missed my battleship!")
             board[guess_row][guess_col] = "-"
+        
+        # Print the board after each turn
+        print_board(board)
 
     if turn == 11:
         print("Game Over")
-        print_board(board)
